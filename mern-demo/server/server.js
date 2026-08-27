@@ -4,13 +4,19 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+  console.error('Thieu bien moi truong MONGODB_URI. Hay khai bao trong file .env.');
+  process.exit(1);
+}
 
 // Middleware bắt buộc
 app.use(cors());
 app.use(express.json());
 
 // Kết nối MongoDB Atlas
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(mongoUri)
   .then(() => console.log("Ket noi MongoDB Atlas thanh cong!"))
   .catch((err) => console.error("Loi ket noi MongoDB:", err));
 
