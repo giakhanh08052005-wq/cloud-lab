@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = '/api/students';
+const API_URL = 'https://mern-backend-1-0-s7cn.onrender.com/api/students';
 
 function App() {
   const [students, setStudents] = useState([]);
@@ -100,7 +100,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', color: '#fff', backgroundColor: '#1e1e1e', minHeight: '100vh', fontFamily: 'sans-serif' }}>
-      <h1 style={{ textAlign: 'center' }}>Quản Lý Sinh Viên</h1>
+      <h1 style={{ textAlign: 'center' }}>Quản Lý Sinh Viên - Version 2.0</h1>
 
       {/* Form nhập dữ liệu */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '30px', flexWrap: 'wrap' }}>
