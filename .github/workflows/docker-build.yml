@@ -1,0 +1,49 @@
+
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "cloud-lab/mern-demo/**"
+      - ".github/workflows/docker-build.yml"
+
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./cloud-lab/mern-demo
+          file: ./cloud-lab/mern-demo/server/Dockerfile
+          push: true
+          tags: |
+            giakhanh080505/mern-backend:latest
+            giakhanh080505/mern-backend:1.2
+
+      - name: Build and Push Frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./cloud-lab/mern-demo/client
+          file: ./cloud-lab/mern-demo/client/Dockerfile
+          push: true
+          tags: |
+            giakhanh080505/mern-frontend:latest
+            giakhanh080505/mern-frontend:3.3
